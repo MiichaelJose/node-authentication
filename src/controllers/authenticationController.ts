@@ -26,9 +26,11 @@ export const signin = async (request: any, response: any) => {
     }
 }
 
-export const verify = (request: any, response: any) => {
+export const verify = async (request: any, response: any) => {
+    console.log("verificando token...");
+    
     const header = request.headers["authorization"];
     const token = header.substring(7);
 
-    response.status(200).json(authService(token));
+    response.status(200).json(await authService(token));
 }

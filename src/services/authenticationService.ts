@@ -50,10 +50,10 @@ export async function signinService(data: any): Promise<string> {
 }
 
 //verify token
-export function authService(token: string): any {
+export async function authService(token: string): Promise<any> {
   try {
     const decoded: any = verify(token, SECRET);
-    return decoded.data;
+    return await decoded.data;
   } catch (err: any) {
     const error = new Error('Erro na verificação do token');
     error.name = err.name; // Exemplo: 'JsonWebTokenError', 'TokenExpiredError'
