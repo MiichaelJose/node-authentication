@@ -6,7 +6,7 @@ import { sign, verify } from "jsonwebtoken";
 // secret key
 const SECRET = Buffer.from("node-auth").toString('base64');
 const OPTIONS = {
-  expiresIn: Math.floor(Date.now() / 1000) + (60 * 60)
+  expiresIn:  30 //Math.floor(Date.now() / 1000) + (60 * 60)
 };
 // bcrypt
 const SALTROUNDS = 10;
