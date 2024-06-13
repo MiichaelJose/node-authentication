@@ -8,17 +8,17 @@ import router from "./routes/authentication";
 
 const app = express();
 
-app.use(bodyParser.json());
+const PORT = 3001;
 
-const port = 3001;
+app.use(bodyParser.json());
 // conectar banco
 mongoose
 .connect("mongodb://localhost:27017/authentication")
 .then(() => {
   console.log("Database connected successfully.");
   // Iniciar o servidor
-  app.listen(port, () => {
-    console.log(`Server is running on port : ${port}`);
+  app.listen(PORT, () => {
+    console.log(`Server is running on port : ${PORT} `);
   });
 })
 .catch((error) => console.log(error));
