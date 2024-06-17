@@ -6,19 +6,21 @@ import bodyParser from "body-parser";
 
 import router from "./routes/authentication";
 
+import 'dotenv/config';
+
 const app = express();
 
-const PORT = 3001;
+const ENV: any = process.env;
 
 app.use(bodyParser.json());
 // conectar banco
 mongoose
-.connect("mongodb://localhost:27017/authentication")
+.connect(ENV.HOST_DATABASE)
 .then(() => {
   console.log("Database connected successfully.");
   // Iniciar o servidor
-  app.listen(PORT, () => {
-    console.log(`Server is running on port : ${PORT} `);
+  app.listen(ENV.PORT, () => {
+    console.log(`Server is running on port : ${ENV.PORT} `);
   });
 })
 .catch((error) => console.log(error));

@@ -1,10 +1,15 @@
 import User from "../models/user";
 
+import { sign, verify } from "jsonwebtoken";
+
 import bcrypt from "bcrypt";
 
-import { sign, verify } from "jsonwebtoken";
+import 'dotenv/config';
+
+const ENV: any = process.env;
+
 // secret key
-const SECRET = Buffer.from("node-auth").toString('base64');
+const SECRET = Buffer.from(ENV.SECRET_KEY).toString('base64');
 const OPTIONS = {
   expiresIn:  30 //Math.floor(Date.now() / 1000) + (60 * 60)
 };
