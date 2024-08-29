@@ -1,9 +1,6 @@
 import User from "../models/user";
-
 import { sign, verify } from "jsonwebtoken";
-
 import bcrypt from "bcrypt";
-
 import 'dotenv/config';
 
 const ENV: any = process.env;
@@ -18,11 +15,8 @@ const SALTROUNDS = 10;
 
 export async function singupService(data: any): Promise<any> {
   const passwordHash = await generateHash(data.password);
-
   data.password = passwordHash;
-
   const user = new User(data);
-
   return await user.save();
 }
 
@@ -33,7 +27,8 @@ export async function signinService(data: any): Promise<string> {
     const status = await compareHash(data.password, user.password);
     
     let token = {};
-
+    let res: any | undefined = {}
+    
     if(status) {
       token = sign({ data: {
         _id: user._id,
@@ -41,13 +36,23 @@ export async function signinService(data: any): Promise<string> {
         created_at: user.created_at,
         updated_at: user.updated_at
       }}, SECRET, OPTIONS);
-    };
-    const res: any = {
-      token: token
-    };
+
+      res = {
+        _id: user._id,
+        name: user.name,
+        token: token
+      };
+    }else {
+      res = undefined
+    }
+
+    if(res == undefined) {
+      throw new Error('usuario não econtrado')
+    }
+
     return res;
   }else {
-    const res: any = {
+    let res: any = {
       msg: "Usuario não encontrado"
     };
     return res;

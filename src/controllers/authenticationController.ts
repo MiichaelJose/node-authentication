@@ -20,7 +20,7 @@ export const signin = async (request: any, response: any) => {
         response.status(200).json(res);
     } catch (error) {
         const res = {
-            msg: "Error"
+            msg: "error Interno"
         };
         response.status(404).json(res);
     }
